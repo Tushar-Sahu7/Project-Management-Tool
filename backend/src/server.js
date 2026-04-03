@@ -1,10 +1,10 @@
 const express = require("express");
-const dotenv = require("dotenv");
+require("dotenv").config();
 const cors = require("cors");
-const connectDB = require("./config/db")
+const connectDB = require("./config/db");
+const projectRoutes = require("./routes/project.routes");
+const taskRoutes = require("./routes/task.routes");
 
-
-dotenv.config();
 connectDB();
 
 const app = express();
@@ -12,10 +12,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) =>{
-  res.status(200).send("API is running...")
-})
+app.use("/projects", projectRoutes);
+app.use("/tasks", taskRoutes);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is listening on PORT: ${process.env.PORT}`)
-})
+app.get("/", (req, res) => {
+  res.status(200).send("API is running...");
+});
+
+app.listen(process.env.PORT || 5000, () => {
+  console.log(`Server is listening on PORT: ${process.env.PORT || 5000}`);
+});
