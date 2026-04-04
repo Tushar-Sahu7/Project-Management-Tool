@@ -58,6 +58,11 @@ const getProjects = async (req, res) => {
 const getProject = async (req, res) => {
   try {
     const projectId = req.params.id;
+
+    if (!projectId) {
+      return res.status(400).json({ message: "Project Id is required" })
+    }
+
     if (!mongoose.Types.ObjectId.isValid(projectId)) {
       return res.status(400).json({ message: "Invalid project ID format" });
     }
@@ -88,7 +93,7 @@ const deleteProject = async (req, res) => {
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
-    
+
     //Deletes all the tasks inside the projects
     await TaskModel.deleteMany({ projectId });
 
