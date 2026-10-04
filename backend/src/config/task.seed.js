@@ -4,6 +4,9 @@ const connectDB = require("./db");
 const ProjectModel = require("../models/Project.model");
 const TaskModel = require("../models/Task.model");
 
+const dns = require("node:dns/promises");
+dns.setServers(["1.1.1.1", "1.0.0.1"]);
+
 const statuses = ["todo", "in-progress", "done"];
 const priorities = ["low", "medium", "high"];
 

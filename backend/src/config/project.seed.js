@@ -3,11 +3,14 @@ require("dotenv").config();
 const connectDB = require("./db");
 const ProjectModel = require("../models/Project.model");
 
+const dns = require("node:dns/promises");
+dns.setServers(["1.1.1.1", "1.0.0.1"]);
+
 const projectSeed = async () => {
   try {
     await connectDB();
     const projects = [];
-    for (let i = 1; i <= 100; i++) {
+    for (let i = 1; i <= 4; i++) {
       projects.push({
         name: `Project ${i}`,
         description: `This is the description for Project ${i}`

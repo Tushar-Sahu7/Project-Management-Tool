@@ -11,6 +11,14 @@ const createProject = async (req, res) => {
         .json({ message: "Name and description of project are required" });
     }
 
+    const projectCount = await ProjectModel.countDocuments();
+
+    if(projectCount > 10){
+      return res.status(403).json({
+        message: "Project limit reached. Cannot create more than 10 projects."
+      })
+    }
+
     const project = await ProjectModel.create({
       name: name,
       description: description
