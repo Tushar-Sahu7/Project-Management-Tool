@@ -51,7 +51,7 @@ export function useTasks(projectId, initialLimit = 10) {
   const addOrUpdateTask = async (taskId, formData) => {
     try {
       if (taskId) {
-        await updateTask(projectId, taskId, formData);
+        await updateTask(taskId, formData);
         toast.success("Task updated successfully");
       } else {
         await createTask(projectId, formData);
@@ -67,7 +67,7 @@ export function useTasks(projectId, initialLimit = 10) {
   const removeTask = async (taskId) => {
     try {
       setDeletingId(taskId);
-      await deleteTask(projectId, taskId);
+      await deleteTask(taskId);
       toast.success("Task deleted successfully");
       fetchData(meta.currentPage);
     } catch (error) {
