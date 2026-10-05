@@ -4,8 +4,8 @@ const connectDB = require("./db");
 const ProjectModel = require("../models/Project.model");
 const TaskModel = require("../models/Task.model");
 
-const dns = require("node:dns/promises");
-dns.setServers(["1.1.1.1", "1.0.0.1"]);
+// const dns = require("node:dns/promises");
+// dns.setServers(["1.1.1.1", "1.0.0.1"]);
 
 const statuses = ["todo", "in-progress", "done"];
 const priorities = ["low", "medium", "high"];
@@ -45,7 +45,9 @@ const taskSeed = async () => {
       return;
     }
 
-    console.log(`Found ${projects.length} projects. Creating 20 tasks per project...`);
+    console.log(
+      `Found ${projects.length} projects. Creating 20 tasks per project...`,
+    );
 
     const tasks = [];
 
@@ -68,7 +70,9 @@ const taskSeed = async () => {
     }
 
     await TaskModel.insertMany(tasks);
-    console.log(`${tasks.length} tasks seeded successfully (${projects.length} projects × 20 tasks)`);
+    console.log(
+      `${tasks.length} tasks seeded successfully (${projects.length} projects × 20 tasks)`,
+    );
   } catch (error) {
     console.error("Task seeding failed:", error.message);
   } finally {
